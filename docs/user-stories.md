@@ -16,4 +16,4 @@ Stretch - As an user, I want to be to delete an item so my list doesn't become t
 
 Stretch - As an user, I want reorder the items of a category so I can see the most important ones first.
 
-Stretch - As a user, I want to be able to drag and drop my items into another category so I easily change its category.
+Stretch - As a user, I want to be able to drag and drop my items into another category so I can easily change its category.
