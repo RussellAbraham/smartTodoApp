@@ -1,24 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('partials/_header') %>
 
-<head>
-  <title>Home Page</title>
+  <header class="p-5">
+    <div>
+        <label for="exampleFormControlInput1" class="form-label">Enter Todo</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Something 😊">
+    </div>
+  </header>
 
-  <meta charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+  <main class="px-5">
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
+    <ul class="list-group">
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
-</head>
+        <li class="list-group-item mt-1">
+            <a class="" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Buy groceries
+            </a>
+        </li>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Details regarding groceries to buy
+            </div>
+        </div>
 
-<body>
-  <h1>Have fun! 🥔</h1>
-</body>
+        <li class="list-group-item mt-1">
+            <a class="" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                Watch a show
+            </a>
+        </li>
+        <div class="collapse" id="collapseExample1">
+            <div class="card card-body">
+                Details regarding show to watch
+            </div>
+        </div>
 
-</html>
+    </ul>
+
+  </main>
+
+<%- include('partials/_footer') %>
