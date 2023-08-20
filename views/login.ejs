@@ -1,0 +1,20 @@
+<%- include('partials/_header') %>
+
+  <header class="p-5">
+    <h3>Login</h3>
+  </header>
+
+  <main class="px-5">
+
+    <form action="/login" method="POST">
+      <div class="mb-3">
+        <label for="inputUsername" class="form-label">Username</label>
+        <input name="username" type="text" class="form-control" id="inputUsername" aria-describedby="usernameHelp" placeholder="Enter username">
+        <div id="usernameHelp" class="form-text">Use one of the four defaults in the database.</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+  </main>
+
+<%- include('partials/_footer') %>
