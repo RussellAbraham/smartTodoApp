@@ -54,8 +54,7 @@ router.post("/", (req, res) => {
 });
 
 //Updates the checked property of the item
-router.get("/:id/checked", (req, res) => {
-  //TODO: Implement the backend logic for updating the checked property of an item
+router.post("/:id/checked", (req, res) => {
   let id = parseInt(req.cookies.user_id);
 
   if (!id) {
@@ -63,7 +62,6 @@ router.get("/:id/checked", (req, res) => {
   }
 
   itemQueries
-    //TODO: Depending on how the front end is implemented (checkbox or an image), the parameters' names may change (checkboxId.checked)
     .checkItem(req.body.checked, req.body.itemId)
     .then((item) => {
       res.send(item);
@@ -72,12 +70,10 @@ router.get("/:id/checked", (req, res) => {
       console.log(error);
       res.send(error);
     });
-
-  //TODO: Depending on how the front end is implemented, this function should redirect or render another page.
 });
 
 //Updates the category of the item
-router.get("/:id/category", (req, res) => {
+router.post("/:id/category", (req, res) => {
   //TODO: Implement the backend logic for updating the category of an item
 });
 

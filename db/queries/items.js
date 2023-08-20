@@ -8,7 +8,7 @@ const getUserItems = (id) => {
                             categories.name
                       FROM items JOIN categories ON category_id=categories.id
                       WHERE user_id = $1
-                      ORDER BY items.category_id, checked`;
+                      ORDER BY items.category_id, checked, items.id`;
   let options = [id];
 
   return db

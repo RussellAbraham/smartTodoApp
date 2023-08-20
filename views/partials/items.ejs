@@ -11,7 +11,8 @@
           <ul class="list-group list-group-flush p-1 border border-grey" id="<%= itemsList[i].category_id%>">
             <% }%>
               <!--Print all the items from that category-->
-              <li draggable="true" class="list-group-item draggable-item">
+              <li draggable="true" class="list-group-item draggable-item" <%-itemsList[i].checked ? 'style=\"text-decoration: line-through\"' : ''%> id="chk<%=itemsList[i].id%>">
+                <input class="form-check-input me-2" type="checkbox" value="<%=itemsList[i].id%>" aria-label="..." <%=itemsList[i].checked ? 'checked' : ''%> />
                 <%=itemsList[i].description%>
               </li>
               <!--To close a list when its finished or the next item is from another category-->
