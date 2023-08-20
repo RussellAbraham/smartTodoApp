@@ -7,11 +7,19 @@
 
 const express = require("express");
 const router = express.Router();
+const itemQueries = require("../db/queries/items");
 
 //Gets all the items of the logged user
-router.get("/items", (req, res) => {
+router.get("/", (req, res) => {
   //TODO: Implement the backend logic for getting all the list items
-  res.render("");
+  if (req.cookies.user_id) {
+    //parseInt to convert the cookie id from string to a number;
+    let id = parseInt(req.cookies.user_id);
+    itemQueries.getUserItems(id).then((result) => {
+      console.log("result :", result);
+      //the template variable for the ejs goes here
+    });
+  }
 });
 
 //Inserts a new item
