@@ -5,13 +5,39 @@
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
+// Import required modules
 const express = require('express');
-const router  = express.Router();
+const router = express.Router();
+const userQueries = require('../db/queries/users');
 
-//Logs the user. No password or username are required at this point.
-//This route should be replaced for POST '/:id' when the proper logic is implemented.
+// GET route to render the login page
 router.get('/:id', (req, res) => {
-  //TODO: Implement the Login route. The lecture notes shows how to easily do it.
-}); 
+  // Check if user is already logged in (cookie exists)
+  if (req.cookies.user_id) {
+    // Redirect to the home page
+    res.redirect('/');
+  } else {
+    userQueries.getUsers()
+    .then(users => {
+      const userId = parseInt(req.params.id);
+      const user = users.find(u => u.id === userId);
+      if (!user) {
+        res.status(404).render('error', {errorMessage : 'User not found!'});
+      } else {
+        res.cookie('user_id', user.name);
+        res.redirect('/');
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).render('error', {errorMessage:'An error occured!'});
+    });
+  }
+});
+
+// POST route to handle user authentication
+router.post('/', (req, res) => {
+  // implement later or delete
+});
 
 module.exports = router;

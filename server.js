@@ -5,6 +5,7 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser'); // Import the cookie-parser middleware
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -25,23 +26,21 @@ app.use(
   })
 );
 app.use(express.static('public'));
+// Use the cookie-parser middleware
+app.use(cookieParser());
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const userApiRoutes = require('./routes/users-api'); //TODO: remove the route
-const widgetApiRoutes = require('./routes/widgets-api'); //TODO: remove the route
-const usersRoutes = require('./routes/users');
 const loginRoutes = require('./routes/login');
+const logoutRoutes = require('./routes/logout');
 const itemsRoutes = require('./routes/items');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
-app.use('/api/users', userApiRoutes); //TODO: remove the route
-app.use('/api/widgets', widgetApiRoutes); //TODO: remove the route
-app.use('/users', usersRoutes);
 // Note: mount other resources here, using the same pattern above
 app.use('/login', loginRoutes);
+app.use('/logout', logoutRoutes);
 app.use('/items', itemsRoutes);
 
 // Home page
@@ -49,8 +48,6 @@ app.use('/items', itemsRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
-  // set title of the document
-  res.locals.title = 'Smart Todo App';
   res.render('index');
 });
 
