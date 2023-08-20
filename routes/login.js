@@ -6,37 +6,38 @@
  */
 
 // Import required modules
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const userQueries = require('../db/queries/users');
+const userQueries = require("../db/queries/users");
 
 // GET route to render the login page
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   // Check if user is already logged in (cookie exists)
   if (req.cookies.user_id) {
     // Redirect to the home page
-    res.redirect('/');
+    res.redirect("/");
   } else {
-    userQueries.getUsers()
-    .then(users => {
-      const userId = parseInt(req.params.id);
-      const user = users.find(u => u.id === userId);
-      if (!user) {
-        res.status(404).render('error', {errorMessage : 'User not found!'});
-      } else {
-        res.cookie('user_id', user.name);
-        res.redirect('/');
-      }
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).render('error', {errorMessage:'An error occured!'});
-    });
+    userQueries
+      .getUsers()
+      .then((users) => {
+        const userId = parseInt(req.params.id);
+        const user = users.find((u) => u.id === userId);
+        if (!user) {
+          res.status(404).render("error", { errorMessage: "User not found!" });
+        } else {
+          res.cookie("user_id", user.id);
+          res.redirect("/");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).render("error", { errorMessage: "An error occured!" });
+      });
   }
 });
 
 // POST route to handle user authentication
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   // implement later or delete
 });
 
