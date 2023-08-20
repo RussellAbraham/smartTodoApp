@@ -49,7 +49,24 @@ router.get("/:id/checked", (req, res) => {
 
 //Updates the category of the item
 router.get("/:id/category", (req, res) => {
-  //TODO: Implement the backend logic for updating the category of an item
+  let id = parseInt(req.cookies.user_id);
+
+  if (!id) {
+    res.redirect("../");
+  }
+
+  itemQueries
+    //TODO: Depending on how the front end was implemented (drag & drop or a button), the parameter names may change
+    .changeCategory(req.body.categoryId, req.body.itemId)
+    .then((item) => {
+      res.send(item);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
+
+  //TODO: Depending on how the front end was implemented, this function should redirect or render another page.
 });
 
 module.exports = router;
