@@ -49,6 +49,8 @@ app.use('/items', itemsRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
+  // set title of the document
+  res.locals.title = 'Smart Todo App';
   res.render('index');
 });
 
