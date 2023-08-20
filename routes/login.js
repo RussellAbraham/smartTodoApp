@@ -44,7 +44,7 @@ router.get("/:id", (req, res) => {
 
 // POST route to handle user authentication
 router.post("/", (req, res) => {
-  // implement later or delete
+  res.redirect("/login/" + req.body.userid);
 });
 
 module.exports = router;
