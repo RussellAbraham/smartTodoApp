@@ -51,8 +51,8 @@ const userQueries = require("./db/queries/users");
 
 app.get("/", (req, res) => {
   const loggedInUserId = req.cookies.user_id; // Assuming user_id is stored in the "user_id" cookie
-  
-  if (loggedInUser) {
+
+  if (loggedInUserId) {
         // res.render("index", { loggedInUser });
         res.redirect("/items");
   }
