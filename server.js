@@ -54,7 +54,6 @@ app.get('/', (req, res) => {
   userQueries.getUserById(loggedInUserId)
     .then(loggedInUser => {
       res.render('index', { loggedInUser });
-      console.log(loggedInUser)
     })
     .catch(error => {
       res.status(500).render('index', { errorMessage: 'An error occurred' });
