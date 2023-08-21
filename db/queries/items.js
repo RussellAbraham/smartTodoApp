@@ -10,8 +10,28 @@ const getUserItems = (id) => {
       return data.rows;
     })
     .catch((error) => {
-      console.log(error.message);
+      console.log("error :", error.message);
     });
 };
 
-module.exports = { getUserItems };
+const addNewItem = function (item) {
+  let queryString = `INSERT INTO items(description,checked,user_id,category_id) values ($1,$2,$3,$4) RETURNING *`;
+  //since id is serial , it will be automatically added
+  //for items.category_id i think this is where weneed to check the api for the category the item falls in before inserting it into the correct category
+  let options = [
+    item.description,
+    item.checked,
+    item.user_id,
+    item.category_id,
+  ];
+  return db
+    .query(queryString, options)
+    .then((result) => {
+      return result.rows[0];
+    })
+    .catch((error) => {
+      console.log("error :", error.message);
+    });
+};
+
+module.exports = { getUserItems, addNewItem };

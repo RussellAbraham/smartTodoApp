@@ -25,6 +25,21 @@ router.get("/", (req, res) => {
 //Inserts a new item
 router.post("/", (req, res) => {
   //TODO: Implement the backend logic for creating a new item in the list
+  let id = parseInt(req.cookies.user_id);
+  if (!id) {
+    res.redirect("/");
+  }
+  const newItem = req.body;
+  newItem.user_id = id;
+  itemQueries
+    .addNewItem(newItem)
+    .then((item) => {
+      res.send(item);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send(error);
+    });
 });
 
 //Updates the checked property of the item
