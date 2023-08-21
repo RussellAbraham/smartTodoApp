@@ -47,8 +47,17 @@ app.use('/items', itemsRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+const userQueries = require('./db/queries/users');
+
 app.get('/', (req, res) => {
-  res.render('index');
+  const loggedInUserId = req.cookies.user_id; // Assuming user_id is stored in the "user_id" cookie
+  userQueries.getUserById(loggedInUserId)
+    .then(loggedInUser => {
+      res.render('index', { loggedInUser });
+    })
+    .catch(error => {
+      res.status(500).render('index', { errorMessage: 'An error occurred' });
+    });
 });
 
 app.listen(PORT, () => {
