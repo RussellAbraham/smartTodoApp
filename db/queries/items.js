@@ -34,4 +34,21 @@ const addNewItem = function (item) {
     });
 };
 
-module.exports = { getUserItems, addNewItem };
+const checkItem = (checked, id) => {
+  let queryString = `UPDATE items
+                     SET checked = $1
+                     WHERE id = $2
+                     RETURNING * `;
+  let options = [checked, id];
+
+  return db
+    .query(queryString, options)
+    .then((data) => {
+      return data.rows[0];
+    })
+    .catch((error) => {
+      console.log("error :", error.message);
+    });
+};
+
+module.exports = { getUserItems, addNewItem, checkItem };
