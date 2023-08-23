@@ -11,6 +11,11 @@ const router = express.Router();
 const userQueries = require("../db/queries/users");
 
 // GET route to render the login page
+router.get("/", (req, res) => {
+  res.render("login");
+});
+
+// GET route to log the user (Interim solution)
 router.get("/:id", (req, res) => {
   // Check if user is already logged in (cookie exists)
   if (req.cookies.user_id) {
@@ -39,7 +44,7 @@ router.get("/:id", (req, res) => {
 
 // POST route to handle user authentication
 router.post("/", (req, res) => {
-  // implement later or delete
+  res.redirect("/login/" + req.body.userid);
 });
 
 module.exports = router;
