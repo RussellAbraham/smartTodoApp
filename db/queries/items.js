@@ -34,6 +34,23 @@ const addNewItem = function (item) {
     });
 };
 
+const changeCategory = (categoryId, id) => {
+  let queryString = `UPDATE items
+                     SET category_id = $1
+                     WHERE id = $2
+                     RETURNING * `;
+  let options = [categoryId, id];
+
+  return db
+    .query(queryString, options)
+    .then((data) => {
+      return data.rows[0];
+    })
+    .catch((error) => {
+      console.log("error :", error.message);
+    });
+};
+
 const checkItem = (checked, id) => {
   let queryString = `UPDATE items
                      SET checked = $1
@@ -51,4 +68,4 @@ const checkItem = (checked, id) => {
     });
 };
 
-module.exports = { getUserItems, addNewItem, checkItem };
+module.exports = { getUserItems, addNewItem, changeCategory, checkItem };
