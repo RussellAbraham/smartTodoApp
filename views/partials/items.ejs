@@ -1,0 +1,25 @@
+<div class="row">
+  <!--Initiate a list everytime we have an item from a new category-->
+  <% for (let i=0; i < itemsList.length; i++){ %>
+
+    <% if(i===0 || itemsList[i].name !==itemsList[i-1].name){%>
+      <div class="col-sm-3 border border-grey p-1">
+        <div class="card">
+          <div class="card-header">
+            <%=itemsList[i].name%>
+          </div>
+          <ul class="list-group list-group-flush p-1 border border-grey">
+            <% }%>
+              <!--Print all the items from that category-->
+              <li draggable="true" class="list-group-item draggable-item">
+                <%=itemsList[i].description%>
+              </li>
+              <!--To close a list when its finished or the next item is from another category-->
+              <% if(i===itemsList.length - 1 || itemsList[i].name !==itemsList[i+1].name){%>
+          </ul>
+        </div>
+      </div>
+      <%} %>
+        <%} %>
+
+</div>

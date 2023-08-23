@@ -26,7 +26,8 @@ router.get("/:id", (req, res) => {
           res.status(404).render("error", { errorMessage: "User not found!" });
         } else {
           res.cookie("user_id", user.id);
-          res.redirect("/");
+          res.cookie("user_name", user.name);
+          res.redirect("/items");
         }
       })
       .catch((err) => {

@@ -16,8 +16,12 @@ router.get("/", (req, res) => {
     //parseInt to convert the cookie id from string to a number;
     let id = parseInt(req.cookies.user_id);
     itemQueries.getUserItems(id).then((result) => {
-      console.log("result :", result);
+
+      const loggedInUser = req.cookies;
+      const itemsList = result;
+      res.render("index", { loggedInUser, itemsList });
       //the template variable for the ejs goes here
+      console.log(loggedInUser);
     });
   }
 });
