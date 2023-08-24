@@ -1,7 +1,13 @@
 const db = require("../connection");
 
 const getUserItems = (id) => {
-  let queryString = `SELECT categories.name,description FROM items JOIN categories ON category_id=categories.id WHERE user_id = $1 GROUP BY categories.name,description ORDER BY categories.name`;
+  let queryString = `
+  SELECT categories.id AS category_id, categories.name, description
+  FROM items
+  JOIN categories ON category_id = categories.id
+  WHERE user_id = $1
+  GROUP BY categories.id, categories.name, description
+  ORDER BY categories.name`;
   let options = [id];
 
   return db

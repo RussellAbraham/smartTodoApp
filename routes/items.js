@@ -19,6 +19,7 @@ router.get("/", (req, res) => {
 
       const loggedInUser = req.cookies;
       const itemsList = result;
+      console.log(result);
       res.render("index", { loggedInUser, itemsList });
       //the template variable for the ejs goes here
       console.log(loggedInUser);
@@ -29,16 +30,22 @@ router.get("/", (req, res) => {
 //Inserts a new item
 router.post("/", (req, res) => {
   //TODO: Implement the backend logic for creating a new item in the list
-  let id = parseInt(req.cookies.user_id);
+  const id = parseInt(req.cookies.user_id);
   if (!id) {
     res.redirect("/");
   }
-  const newItem = req.body;
-  newItem.user_id = id;
+  const newItem = {
+    description : req.body.text,
+    // TODO : change properties to use api
+    checked : 'FALSE',
+    user_id : id,
+    category_id : 1,
+  };
   itemQueries
     .addNewItem(newItem)
     .then((item) => {
-      res.send(item);
+      //res.redirect("/items");
+      res.json(newItem);
     })
     .catch((error) => {
       console.log(error);
