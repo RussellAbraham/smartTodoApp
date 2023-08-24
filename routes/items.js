@@ -16,7 +16,6 @@ router.get("/", (req, res) => {
     //parseInt to convert the cookie id from string to a number;
     let id = parseInt(req.cookies.user_id);
     itemQueries.getUserItems(id).then((result) => {
-
       const loggedInUser = req.cookies;
       const itemsList = result;
       res.render("index", { loggedInUser, itemsList });
@@ -35,11 +34,11 @@ router.post("/", (req, res) => {
     res.redirect("/");
   }
   const newItem = {
-    description : req.body.text,
+    description: req.body.text,
     // TODO : change properties to use api
-    checked : 'FALSE',
-    user_id : id,
-    category_id : 1,
+    checked: "FALSE",
+    user_id: id,
+    category_id: 1,
   };
   itemQueries
     .addNewItem(newItem)
@@ -77,8 +76,20 @@ router.get("/:id/checked", (req, res) => {
 });
 
 //Updates the category of the item
-router.get("/:id/category", (req, res) => {
+router.post("/:id/category", (req, res) => {
   //TODO: Implement the backend logic for updating the category of an item
+  let itemId = parseInt(req.cookies.user_id);
+  let targetCategoryId = parseInt(req.cookies.targetCategoryId);
+  //need to find a way to get the item category and item.id
+  itemQueries
+    .changeCategory(targetCategoryId, itemId)
+    .then((result) => {
+      console.log(result);
+      return result.rows;
+    })
+    .catch((err) => {
+      console.log("error :", error.message);
+    });
 });
 
 module.exports = router;

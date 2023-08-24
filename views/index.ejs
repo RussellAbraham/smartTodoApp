@@ -73,7 +73,8 @@
     <form id="todoForm">
       <div class="mb-3">
         <label for="todoInput" class="form-label">Enter Todo:</label>
-        <input name="text" type="text" class="form-control" id="todoInput" aria-describedby="todoInput" placeholder="Enter something 😊">
+        <input name="text" type="text" class="form-control" id="todoInput" aria-describedby="todoInput"
+          placeholder="Enter something 😊">
       </div>
     </form>
   </header>
@@ -89,6 +90,67 @@
     crossorigin="anonymous"></script>
   <script src="/scripts/app.js"></script>
 
+  <!-- Draggable js function -->
+  <script>(function() {
+      let selected = null;
+
+      function dragOver(event) {
+        if (isBefore(selected, event.target)) {
+          event.target.parentNode.insertBefore(selected, event.target);
+        } else {
+          event.target.parentNode.insertBefore(selected, event.target.nextSibling);
+        }
+        console.log("over");
+      }
+
+      function dragEnd() {
+        selected = null;
+        console.log("end");
+      }
+
+      function dragStart(event) {
+        // event.dataTransfer.effectAllowed = "move";
+        // event.dataTransfer.setData("text/plain", null);
+        // selected = event.target;
+        const targetCategoryId = event.target.parentNode.getAttribute("data-category-id");
+
+        document.cookie = `targetCategoryId = ${targetCategoryId}; path =/`;
+        console.log("start");
+      }
+
+      function isBefore(el1, el2) {
+        let cur;
+        if (el2.parentNode === el1.parentNode) {
+          for (cur = el1.previousSibling; cur; cur = cur.previousSibling) {
+            if (cur === el2) return true;
+          }
+        }
+        return false;
+      }
+
+      function listen(element, events) {
+        for (let event in events) {
+          element.addEventListener(event, events[event]);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        const draggableItems = document.querySelectorAll(".draggable-item");
+        draggableItems.forEach(function(item) {
+          listen(item, {
+            dragend: dragEnd,
+            //'dragover': dragOver,
+            dragstart: dragStart,
+          });
+        });
+        const dropTargets = document.querySelectorAll(".list-group");
+        dropTargets.forEach(function(target) {
+          listen(target, {
+            dragover: dragOver,
+          });
+        });
+      });
+    })();</script>
 </body>
 
 </html>
