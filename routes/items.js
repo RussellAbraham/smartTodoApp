@@ -22,6 +22,7 @@ router.get("/", (req, res) => {
       res.render("index", { loggedInUser, itemsList });
       //the template variable for the ejs goes here
       console.log(loggedInUser);
+      console.log(result);
     });
   }
 });
