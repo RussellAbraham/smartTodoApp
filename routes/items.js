@@ -30,32 +30,40 @@ router.get("/", (req, res) => {
 
 //Inserts a new item
 router.post("/", (req, res) => {
-  //TODO: Implement the backend logic for creating a new item in the list
   const id = parseInt(req.cookies.user_id);
   if (!id) {
     res.redirect("/");
+    return;
   }
 
-  const item = req.body.text; //error checking?
+  const item = req.body.text;
 
-  const newItem = {
-    description : req.body.text,
-    // TODO : change properties to use api
-    checked : 'FALSE',
-    user_id : id,
-    category_id : classifyItem.classifyItem(item),
-  };
-  itemQueries
-    .addNewItem(newItem)
-    .then((item) => {
-      //res.redirect("/items");
-      res.json(newItem);
-    })
-    .catch((error) => {
-      console.log(error);
-      res.send(error);
-    });
+  classifyItem.classifyItem(item, (error, category_id) => { //use callback based request
+    if (error) {
+      console.error('error classifying item :', error);
+      res.status(500).send('error classifying item');
+      return;
+    }
+
+    const newItem = {
+      description: req.body.text,
+      checked: 'FALSE',
+      user_id: id,
+      category_id: category_id,
+    };
+
+    itemQueries
+      .addNewItem(newItem)
+      .then((item) => {
+        res.json(newItem);
+      })
+      .catch((error) => {
+        console.error('Error adding new item:', error);
+        res.status(500).send('Error adding new item');
+      });
+  });
 });
+
 
 //Updates the checked property of the item
 router.post("/:id/checked", (req, res) => {
