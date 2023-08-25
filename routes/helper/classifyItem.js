@@ -1,4 +1,5 @@
-const request = require('request-promise');
+const request = require('request');
+
 
 const createObject = require('./createObject');
 
@@ -7,7 +8,7 @@ const { error } = require('console');
 
 const readKey = '8ysE02L4zpcx'; //read
 
-const classifyItem = function(query) {
+const classifyItem = function(query, callback) {
   const classify = {
     method: 'POST',
     uri: 'https://api.uclassify.com/v1/tjdude/smart-classifier/classify',
@@ -22,15 +23,17 @@ const classifyItem = function(query) {
     },
   };
 
-  request(classify)
-    .then((response) => {
-      const item = createObject.createObject(query,response);
-      return item.categoryID;
-    })
-    .catch((error) => {
+  request(classify, (error, response, body) => {
+    if (error) {
       console.error('Error:', error);
-      return error;
-    });
+      callback(error, null);
+      return;
+    }
+
+    const item = createObject.createObject(query, body);
+    const id = item.categoryID;
+    callback(null, id);
+  });
 }
 
 module.exports = { classifyItem: classifyItem };
