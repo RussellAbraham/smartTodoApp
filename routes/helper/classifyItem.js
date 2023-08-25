@@ -2,18 +2,15 @@ const request = require('request-promise');
 
 const createObject = require('./createObject');
 
-//const process = require('process'); //for testing
 const { response } = require('express');
 const { error } = require('console');
 
 const readKey = '8ysE02L4zpcx'; //read
 
-//const QUERY = process.argv[2]; //for testing
-
 const classifyItem = function(query) {
   const classify = {
     method: 'POST',
-    uri: 'https://api.uclassify.com/v1/tjdude/smart-classifier/classify', //or /keywords
+    uri: 'https://api.uclassify.com/v1/tjdude/smart-classifier/classify',
     headers: {
       Authorization: `Token ${readKey}`,
       'Content-Type': 'application/json',
@@ -32,6 +29,7 @@ const classifyItem = function(query) {
     })
     .catch((error) => {
       console.error('Error:', error);
+      return error;
     });
 }
 
