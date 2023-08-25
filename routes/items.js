@@ -8,6 +8,7 @@
 const express = require("express");
 const router = express.Router();
 const itemQueries = require("../db/queries/items");
+const classifyItem = require("./helper/classifyItem");
 
 //Gets all the items of the logged user
 router.get("/", (req, res) => {
@@ -34,12 +35,15 @@ router.post("/", (req, res) => {
   if (!id) {
     res.redirect("/");
   }
+
+  const item = req.body.text; //error checking?
+
   const newItem = {
     description : req.body.text,
     // TODO : change properties to use api
     checked : 'FALSE',
     user_id : id,
-    category_id : 1,
+    category_id : classifyItem.classifyItem(item),
   };
   itemQueries
     .addNewItem(newItem)
