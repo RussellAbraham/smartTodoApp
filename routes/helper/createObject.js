@@ -4,19 +4,17 @@
 ('To Read');   -- ID 3
 ('To Buy');    -- ID 4
 */
-
-
-const createObject = function(name, response) {
-  const categoryInfo = determineCategory(response[0].classification);
-
-  const item = {
-    name: name,
-    category: categoryInfo.name,
-    categoryID: categoryInfo.id,
+function getKeywordID(keyword) {
+  const keywordsToIDs = {
+    'watch': 1,
+    'eat': 2,
+    'read': 3,
+    'buy': 4,
+    'purchase': 4
   };
 
-  return item;
-};
+  return keywordsToIDs[keyword.toLowerCase()] || null;
+}
 
 const determineCategory = function(data) {
   let maxP = -1;
@@ -35,7 +33,7 @@ const determineCategory = function(data) {
   });
 
   if (allSameP) {
-    return { name: 'uncategorized', id: null };
+    return { query: 'uncategorized', id: null };
   }
 
   return getCategoryInfo(maxClassName);
@@ -54,8 +52,32 @@ const getCategoryInfo = function(className) {
     categoryID = 4;
   }
 
-  return { name: className, id: categoryID };
+  return { query: className, id: categoryID };
 };
+
+const createObject = function(query, response) {
+  const firstWord = query.trim().split(' ')[0];
+  const categoryID = getKeywordID(firstWord);
+
+  if (categoryID !== null) {
+    return {
+      query: query,
+      category: firstWord,
+      categoryID: categoryID
+    };
+  } else {
+    const categoryInfo = determineCategory(response[0].classification);
+
+    const item = {
+      query: query,
+      category: categoryInfo.query,
+      categoryID: categoryInfo.id,
+    };
+
+    return item;
+  }
+};
+
 
 module.exports = { createObject: createObject };
 
