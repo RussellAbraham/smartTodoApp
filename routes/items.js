@@ -35,12 +35,15 @@ router.post("/", (req, res) => {
   if (!id) {
     res.redirect("/");
   }
+
+  const item = req.body.text; //error checking?
+
   const newItem = {
     description : req.body.text,
     // TODO : change properties to use api
     checked : 'FALSE',
     user_id : id,
-    category_id : classifyItem.classifyItem(newItem.description),
+    category_id : classifyItem.classifyItem(item),
   };
   itemQueries
     .addNewItem(newItem)
