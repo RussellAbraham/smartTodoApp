@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
 
     const newItem = {
       description: req.body.text,
-      checked: 'FALSE',
+      checked: false,
       user_id: id,
       category_id: category_id,
     };
@@ -55,7 +55,8 @@ router.post("/", (req, res) => {
     itemQueries
       .addNewItem(newItem)
       .then((item) => {
-        res.json(newItem);
+        //res.json(newItem);
+        res.redirect('/items');
       })
       .catch((error) => {
         console.error('Error adding new item:', error);
