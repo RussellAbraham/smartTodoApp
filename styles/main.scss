@@ -1,18 +1,87 @@
-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+.navbar {
+  background-color: #b2beb5;
+  font-family: "Roboto", sans-serif;
 
-  background: rgb(163, 208, 219);
-  background: linear-gradient(
-    227deg,
-    rgba(163, 208, 219, 1) 0%,
-    rgba(163, 176, 219, 1) 20%,
-    rgba(163, 173, 219, 1) 34%,
-    rgba(163, 219, 208, 1) 59%,
-    rgba(163, 208, 219, 1) 74%,
-    rgba(163, 208, 219, 1) 100%
-  );
+  &-user {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+}
+
+body {
+  background-color: #e2e5de;
+  font-family: "Roboto", sans-serif;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // min-height: 100vh;
+
+  // background: rgb(163, 208, 219);
+  // background: linear-gradient(
+  //   227deg,
+  //   rgba(163, 208, 219, 1) 0%,
+  //   rgba(163, 176, 219, 1) 20%,
+  //   rgba(163, 173, 219, 1) 34%,
+  //   rgba(163, 219, 208, 1) 59%,
+  //   rgba(163, 208, 219, 1) 74%,
+  //   rgba(163, 208, 219, 1) 100%
+  // );
+}
+.form-label {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+.card-header {
+  text-align: center;
+  font-weight: 700;
+}
+.watch {
+  background-color: #bec5e2;
+
+  &-item {
+    background-color: #dfe5f3;
+  }
+}
+.eat {
+  background-color: #c2dbbd;
+  &-item {
+    background-color: #e1efe0;
+  }
+}
+.read {
+  background-color: #efbac0;
+  &-item {
+    background-color: #fae0e3;
+  }
+}
+.buy {
+  background-color: #ecd6a7;
+  &-item {
+    background-color: #f7ecd6;
+  }
+}
+.list-group-item {
+  font-weight: 400;
+}
+
+.footer {
+  background-color: #b2beb5;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  &-text {
+    margin: 0;
+    font-weight: 400;
+    color: #545454;
+    &-names {
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+  }
 }
