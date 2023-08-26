@@ -85,9 +85,21 @@ router.post("/:id/checked", (req, res) => {
     });
 });
 
+
 //Updates the category of the item
 router.post("/:id/category", (req, res) => {
-  //TODO: Implement the backend logic for updating the category of an item
+  const itemId = req.params.id;
+  const newCategoryId = req.body.newCategoryId; // Assuming you're sending the new category_id in the request body
+
+  itemQueries.updateItemCategory(itemId, newCategoryId)
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
+    });
 });
+
 
 module.exports = router;

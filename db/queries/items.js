@@ -75,4 +75,18 @@ const checkItem = (checked, id) => {
     });
 };
 
-module.exports = { getUserItems, addNewItem, changeCategory, checkItem };
+const updateItemCategory = (itemId, newCategoryId) => {
+  const queryString = 'UPDATE items SET category_id = $1 WHERE id = $2';
+
+  return db
+    .query(queryString, [newCategoryId, itemId])
+    .then(() => {
+      console.log('Item category updated successfully');
+    })
+    .catch((error) => {
+      console.error('Error updating item category:', error);
+      throw error;
+    });
+};
+
+module.exports = { getUserItems, addNewItem, changeCategory, checkItem, updateItemCategory };
