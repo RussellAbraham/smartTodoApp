@@ -14,17 +14,23 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- css styles -->
+  <link rel="stylesheet" href="../styles/main.css">
+  <!-- fonts import -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom border-dark p-1">
+  <nav class="navbar navbar-expand-lg  border-bottom border-dark p-1">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <% if (loggedInUser===undefined) { %>
-          <span>Smart Todo's</span>
+          <span class="navbar-user">Smart Todo's</span>
           <% } else { %>
-            <span>
+            <span class="navbar-user">
               <%= loggedInUser.user_name %>'s List
             </span>
             <% } %>
@@ -35,7 +41,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-<!--
+        <!--
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">To Eat</a>
@@ -73,7 +79,8 @@
     <form id="todoForm" action="/items" method="POST">
       <div class="mb-3">
         <label for="todoInput" class="form-label">Enter Todo:</label>
-        <input name="text" type="text" class="form-control" id="todoInput" aria-describedby="todoInput" placeholder="Enter something 😊">
+        <input name="text" type="text" class="form-control" id="todoInput" aria-describedby="todoInput"
+          placeholder="Enter something 😊">
       </div>
     </form>
   </header>
@@ -81,6 +88,11 @@
   <main class="px-5">
     <%- include('./partials/items') %>
   </main>
+  <footer class="footer border-top border-dark">
+    <p class="footer-text">Created By: <span class="footer-text-names"> Olanrewaju Akinola, Rauber Simoes do Nascimento,
+        Russell Ley, Taek Joon Nam</span>
+    </p>
+  </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
   <!-- Bootstrap JS -->
