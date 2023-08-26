@@ -1,28 +1,40 @@
 <div class="row">
   <!--Initiate a list everytime we have an item from a new category-->
-  <% for (let i = 0; i < itemsList.length; i++) { %>
-    <% if (i === 0 || itemsList[i].name !== itemsList[i - 1].name) { %>
+  <% for (let i=0; i < itemsList.length; i++) { %>
+    <% if (i===0 || itemsList[i].name !==itemsList[i - 1].name) { %>
       <div class="col-sm-3 border border-grey p-1">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header
+            <%if(itemsList[i].name==='To Watch') { %>watch<%} %>
+            <%if(itemsList[i].name==='To Eat' ) {%>eat<%}%>
+            <%if(itemsList[i].name==='To Read') {%>read<%}%>
+            <%if(itemsList[i].name==='To Buy') {%>buy<%}%>">
             <%= itemsList[i].name %>
           </div>
-          <ul class="list-group list-group-flush p-1 border border-grey" id="<%= itemsList[i].category_id %>">
-    <% } %>
-    <!--Print all the items from that category-->
-    <li draggable="true" class="list-group-item draggable-item <%= itemsList[i].checked ? 'text-decoration-line-through' : '' %>"
-      data-item-id="<%= itemsList[i].id %>">
-      <input class="form-check-input me-2" type="checkbox" value="<%= itemsList[i].id %>"
-        <%= itemsList[i].checked ? 'checked' : '' %> />
-      <%= itemsList[i].description %>
-    </li>
-    <!--To close a list when it's finished or the next item is from another category-->
-    <% if (i === itemsList.length - 1 || itemsList[i].name !== itemsList[i + 1].name) { %>
+          <ul class=" list-group list-group-flush p-1 border border-grey
+          <% if (itemsList[i].name==='To Watch' ) { %>watch-item<%} %>
+            <%if(itemsList[i].name==='To Eat' ){%>eat-item<%}%>
+            <%if(itemsList[i].name==='To Read'){%>read-item<%}%>
+            <%if(itemsList[i].name==='To Buy'){%>buy-item<%}%>
+          " id="<%= itemsList[i].category_id %>">
+            <% } %>
+              <!--Print all the items from that category-->
+              <li draggable="true" class="list-group-item draggable-item <%= itemsList[i].checked ? 'text-decoration-line-through' : '' %>
+                <% if (itemsList[i].name==='To Watch' ) { %>watch-item<%} %>
+                    <%if(itemsList[i].name==='To Eat' ){%>eat-item<%}%>
+                        <%if(itemsList[i].name==='To Read'){%>read-item<%}%>
+                            <%if(itemsList[i].name==='To Buy'){%>buy-item<%}%>" data-item-id="<%= itemsList[i].id %>">
+                <input class="form-check-input me-2" type="checkbox" value="<%= itemsList[i].id %>"
+                  <%=itemsList[i].checked ? 'checked' : '' %> />
+                <%= itemsList[i].description %>
+              </li>
+              <!--To close a list when it's finished or the next item is from another category-->
+              <% if (i===itemsList.length - 1 || itemsList[i].name !==itemsList[i + 1].name) { %>
           </ul>
         </div>
       </div>
-    <% } %>
-  <% } %>
+      <% } %>
+        <% } %>
 
 
 </div>
